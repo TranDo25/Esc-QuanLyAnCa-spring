@@ -1,0 +1,40 @@
+#pull sql server image
+
+docker pull mcr.microsoft.com/mssql/server
+
+#view images
+
+docker images
+
+#remove image
+
+docker rmi id_image
+
+#xem container đang chạy
+
+docker ps
+docker ps -a (xem tất cả các container)
+#xóa container đi
+docker rm --force container_id
+
+#volumn: bảo vệ dữ liệu
+
+#create container from image: 1 image có thể tạo ra nhiều container
+    -d: Detach mode
+    -e: environment variable
+    --name: container name
+    -p: port
+ex:
+docker run
+-e "ACCEPT_EULA=Y"
+-e "SA_PASSWORD=password"
+--name container_name
+-p 1435:1433
+-d image_name:tag
+
+#xem log
+docker logs container_id
+
+
+docker run --name spring-container -p 8085:8080 -d escquanlyancaspring:v1.0.0
+

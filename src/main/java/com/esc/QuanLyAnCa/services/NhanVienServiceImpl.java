@@ -25,7 +25,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         return nhanvienRepository.findAll(pageable);
     }
 
-    @Override
+
     public NhanVien save(NhanVien nhanvien) {
         return nhanvienRepository.save(nhanvien);
     }
