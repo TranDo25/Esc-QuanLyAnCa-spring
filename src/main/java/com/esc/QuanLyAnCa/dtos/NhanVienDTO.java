@@ -1,5 +1,6 @@
 package com.esc.QuanLyAnCa.dtos;
 
+import com.esc.QuanLyAnCa.models.user.Role;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -24,4 +25,5 @@ public class NhanVienDTO {
     private String createdBy;
     private LocalDateTime modifiedDate;
     private String modifiedBy;
+    private Role role;
 }

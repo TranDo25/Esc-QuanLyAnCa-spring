@@ -1,4 +1,4 @@
-package com.esc.QuanLyAnCa.security.auth;
+package com.esc.QuanLyAnCa.security.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class RegisterRequest {
+    private String fullname;
     private String username;
     private String password;
 

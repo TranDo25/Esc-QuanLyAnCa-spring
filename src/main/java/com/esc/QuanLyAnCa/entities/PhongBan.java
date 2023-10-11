@@ -1,6 +1,8 @@
 package com.esc.QuanLyAnCa.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,10 +18,12 @@ public class PhongBan {
     @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name = "PhongBanId")
     private String phongBanId;
-
+    @NotBlank(message = "thiếu mã phòng ban")
+    @Size(min = 6, message = "mã phòng ban tối thiểu 6 ký tự")
     @Column(name = "PhongBanCode")
     private String phongBanCode;
-
+    @NotBlank(message = "thiếu tên phòng ban")
+    @Size(min = 6, message = "tên phòng ban tối thiểu 6 ký tự")
     @Column(name = "PhongBanName")
     private String phongBanName;
 

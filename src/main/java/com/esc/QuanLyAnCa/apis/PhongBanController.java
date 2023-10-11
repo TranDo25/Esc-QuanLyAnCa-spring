@@ -2,12 +2,19 @@ package com.esc.QuanLyAnCa.apis;
 
 import com.esc.QuanLyAnCa.entities.PhongBan;
 import com.esc.QuanLyAnCa.services.PhongBanService;
+import jakarta.validation.Valid;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -17,18 +24,40 @@ public class PhongBanController {
 
     @Autowired
     private PhongBanService phongbanService;
-
+    private static final Logger logger = Logger.getLogger(String.valueOf(PhongBanController.class));
 
 
     @PutMapping("phongban/{id}")
-    public PhongBan updatePhongBan(@PathVariable String id, @RequestBody PhongBan updatedPhongBan) {
-        return phongbanService.update(id, updatedPhongBan);
+    public ResponseEntity<?> updatePhongBan(@PathVariable String id, @Valid @RequestBody PhongBan updatedPhongBan,
+                                            BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            // Nếu có lỗi trong dữ liệu đầu vào
+            Map<String, String> errorMap = new HashMap<>();
+            result.getFieldErrors().forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
+            logger.error(errorMap);
+
+            return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+        }
+        PhongBan savedPhongBan = phongbanService.update(id, updatedPhongBan);
+        return new ResponseEntity<>(savedPhongBan, HttpStatus.OK);
 
     }
 
     @PostMapping("/phongban")
-    public PhongBan save(@RequestBody PhongBan phongban) {
-        return phongbanService.save(phongban);
+    public ResponseEntity<?> save(@Valid @RequestBody PhongBan phongban,
+                                  BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            // Nếu có lỗi trong dữ liệu đầu vào
+            Map<String, String> errorMap = new HashMap<>();
+            result.getFieldErrors().forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
+            logger.error(errorMap);
+
+            return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+        }
+        PhongBan savedPhongBan = phongbanService.save(phongban);
+        return new ResponseEntity<>(savedPhongBan, HttpStatus.CREATED);
     }
 
     @GetMapping("/phongban/{id}")
